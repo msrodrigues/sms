@@ -1,0 +1,12 @@
+name: "sms"
+title: "Análises SMS"
+description: |
+  Análises e Insights para SMS POA
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Início"
+      href: index.html
+    - text: "Sobre"
+      href: about.html
+output: distill::distill_article

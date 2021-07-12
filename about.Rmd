@@ -1,0 +1,11 @@
+---
+title: "Objetivos"
+description: |
+  Este site é um repositório de diversas análises de saúde. Serve para ilustrar conceitos,
+  divulgar idéias e ajudar na discussão dos grupos de trabalho da SMS-POA.
+  Nõa é direcionada para a divulgação do público em geral.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
