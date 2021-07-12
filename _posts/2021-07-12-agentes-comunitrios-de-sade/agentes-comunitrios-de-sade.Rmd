@@ -212,6 +212,8 @@ us_supridas_com51 %>%
 
 ### Unidades Plenamente Supridas
 
+São consideradas aquelas unidades que tem a quantidade necessária de ACS, não importando qual a sua vinculação trabalhista.
+
 
 ```{r}
 global  %>% 
@@ -220,15 +222,15 @@ global  %>%
     "CNES" = "cnes",
     "Nome da Unidade" = "nome",
     "E51" = "acs_51",
-    "IMESF"
-  )
+    "IMESF" = "acs_imesf"
+  ) %>% 
   DT::datatable( caption = "Unidades de Saúde com suprimento completo de ACS",
          extensions = c('FixedColumns',"FixedHeader"),
           options = list(scrollX = TRUE, 
                          style = "bootstrap",
                          paging=TRUE,
                          fixedHeader=TRUE)) %>% 
-  DT::formatStyle(columns = c(1, 2, 3, 4, 5), fontSize = '65%')
+  DT::formatStyle(columns = c(1, 2, 3, 4, 5), fontSize = '75%')
 
 ```
 
