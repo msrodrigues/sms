@@ -177,7 +177,8 @@ n_suprida_e51_ajustadas <- sum(global$ajustada)
 São `r n_us` unidades de saúde, com `r n_esf` equipes de estratégia da saúde da família. As equipes de estratégia da saúde da família precisam de 1 ou 2 Agentes Comunitários de Saúde (ACS) para serem consideradas completas. As equipes completas tem **seu financiamento programado**. Equipes incompletas não recebem recursos federais.
 
 <br>
-### Distribuição das Unidades quanto a adequação da quantidade de ACS
+
+### Distribuição das Unidades quanto as necessidades de ACS
 
 ```{r, include=TRUE}
 global %>% 
@@ -187,7 +188,7 @@ global %>%
   theme_test() +
   scale_fill_manual(values = c("Adequada" = "forestgreen", "Faltam ACS" = "firebrick3", "Mais que necessário" = "orange1")) +
   geom_label() +
-  labs(title = "Quantidade de Unidades de Saúde e seu estado quanto a quantidade de ACS.", 
+  labs(title = "Quantidade de Unidades de Saúde e demanda por ACS.", 
        subtitle = "Fonte: SMS") +
   xlab("Situação da Unidade") + 
   ylab("Quantidade de Unidades") +
@@ -209,6 +210,11 @@ Temos **`r n_suprida_e51_ajustadas` unidades** que estão supridas sem excedente
 Os ACS contratados por E51 não podem ser demitidos e estão fixados geograficamente, não podendo ser remanejados mesmo se a quantidade em uma Unidade de Saúde (US) exceder a necessidade desse local, ele lá permanecerão como excedente. 
 
 
+
+<br>
+
+### Unidades de Saúde com suprimento completo de ACS
+
 ```{r, include=TRUE}
 
 
@@ -221,7 +227,7 @@ us_supridas_com51 %>%
     "ACS E51" = "acs_51",
     "ACS necessários" = "total_acs_necessarios"
   ) %>% 
-  DT::datatable( caption = "Unidades de Saúde com suprimento completo de ACS",
+  DT::datatable(
          extensions = c('FixedColumns',"FixedHeader"),
           options = list(scrollX = TRUE, 
                          style = "bootstrap",
