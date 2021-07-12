@@ -4,7 +4,7 @@ description: |
   Analise sobre o Quantitativo de distribuição dos Agentes Comunitários de Saúde.
 author:
   - name: Márcio Rodrigues
-    url: https://example.com/norajones
+    url: https://github.com/msrodrigues/sms
 date: 07-12-2021
 output:
   distill::distill_article:
@@ -159,7 +159,12 @@ global <- acs %>%
     excedente = ifelse(balanco <= 0, abs(balanco), 0),
     deficit = ifelse(balanco > 0, balanco, 0),
     suprida = ifelse(balanco <= 0, TRUE, FALSE),
-    ajustada = balanco == 0
+    ajustada = balanco == 0,
+    estado = case_when(
+      balanco == 0 ~ "Adequada",
+      balanco > 0 ~ "Mais que necessário",
+      balanco <0 ~ "Faltam ACS"
+    )
   )
 
 # Quantidade de unidades supridas sem excedentes pela E51
@@ -170,6 +175,27 @@ n_suprida_e51_ajustadas <- sum(global$ajustada)
 
 
 São `r n_us` unidades de saúde, com `r n_esf` equipes de estratégia da saúde da família. As equipes de estratégia da saúde da família precisam de 1 ou 2 Agentes Comunitários de Saúde (ACS) para serem consideradas completas. As equipes completas tem **seu financiamento programado**. Equipes incompletas não recebem recursos federais.
+
+<br>
+### Distribuição das Unidades quanto a adequação da quantidade de ACS
+
+```{r, include=TRUE}
+global %>% 
+  count(estado) %>% 
+  ggplot(aes(x = fct_reorder(estado,n),  y = n, fill = estado, label = n)) + 
+  geom_col() +
+  theme_test() +
+  scale_fill_manual(values = c("Adequada" = "forestgreen", "Faltam ACS" = "firebrick3", "Mais que necessário" = "orange1")) +
+  geom_label() +
+  labs(title = "Quantidade de Unidades de Saúde e seu estado quanto a quantidade de ACS.", 
+       subtitle = "Fonte: SMS") +
+  xlab("Situação da Unidade") + 
+  ylab("Quantidade de Unidades") +
+  theme(legend.position = "none")
+
+
+```
+
 
 O Agentes Comunitários tem, em Porto Alegre,  2 tipos de contratos: via Emenda 51 (E51) e via IMESF (CLT), com regramentos distintos.
 <br><BR>

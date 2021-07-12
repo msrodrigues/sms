@@ -4,9 +4,9 @@ description: |
   Site para divulgação e atualizações de análises
 author:
   - name: Márcio Rodrigues 
-    url: https://example.com/norajones
+    url: https://github.com/msrodrigues/sms
     affiliation: Secretaria Municipal da Saúde de Porto Alegre
-    affiliation_url: https://example.com/spacelysprokets
+    affiliation_url: https://github.com/msrodrigues
 date: 07-12-2021
 output:
   distill::distill_article:
