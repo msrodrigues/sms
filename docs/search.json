@@ -2,18 +2,18 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "title": "Objetivos",
+      "description": "Este site é um repositório de diversas análises de saúde. Serve para ilustrar conceitos,\ndivulgar idéias e ajudar na discussão dos grupos de trabalho da SMS-POA.\nNõa é direcionada para a divulgação do público em geral.",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-07-12T09:53:57-03:00"
+      "last_modified": "2021-07-12T17:57:26-03:00"
     },
     {
       "path": "index.html",
-      "title": "My Blog",
+      "title": "Avaliações e Análises",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-07-12T09:53:58-03:00"
+      "last_modified": "2021-07-12T17:57:14-03:00"
     }
   ],
   "collections": ["posts/posts.json"]
