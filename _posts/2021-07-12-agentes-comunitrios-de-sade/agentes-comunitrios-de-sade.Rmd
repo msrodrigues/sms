@@ -215,7 +215,7 @@ us_supridas_com51 %>%
 São consideradas aquelas unidades que tem a quantidade necessária de ACS, não importando qual a sua vinculação trabalhista.
 
 
-```{r}
+```{r, include=TRUE}
 global  %>% 
   select(cnes, nome, acs_51, acs_imesf, balanco) %>% 
   rename(
