@@ -153,7 +153,7 @@ us_supridas_com51 %>%
 
 # Totalizador global
 global <- acs %>% 
-  select(cnes, nome, total_acs_e51_imesf, total_acs_necessarios) %>% 
+  select(cnes, nome, acs_51, acs_imesf, total_acs_e51_imesf, total_acs_necessarios) %>% 
   mutate(
     balanco = total_acs_necessarios - total_acs_e51_imesf,
     excedente = ifelse(balanco <= 0, abs(balanco), 0),
@@ -206,5 +206,33 @@ us_supridas_com51 %>%
 ```
 
 
+
+
+<br><br>
+
+### Unidades Plenamente Supridas
+
+
+```{r}
+global  %>% 
+  select(cnes, nome, acs_51, acs_imesf, balanco) %>% 
+  rename(
+    "CNES" = "cnes",
+    "Nome da Unidade" = "nome",
+    "E51" = "acs_51",
+    "IMESF"
+  )
+  DT::datatable( caption = "Unidades de Saúde com suprimento completo de ACS",
+         extensions = c('FixedColumns',"FixedHeader"),
+          options = list(scrollX = TRUE, 
+                         style = "bootstrap",
+                         paging=TRUE,
+                         fixedHeader=TRUE)) %>% 
+  DT::formatStyle(columns = c(1, 2, 3, 4, 5), fontSize = '65%')
+
+```
+
+
+A
 
 
