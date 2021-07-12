@@ -201,7 +201,7 @@ us_supridas_com51 %>%
                          style = "bootstrap",
                          paging=TRUE,
                          fixedHeader=TRUE)) %>% 
-  DT::formatStyle(columns = c(1, 2, 3, 4, 5), fontSize = '65%')
+  DT::formatStyle(columns = c(1, 2, 3, 4, 5), fontSize = '75%')
 
 ```
 
