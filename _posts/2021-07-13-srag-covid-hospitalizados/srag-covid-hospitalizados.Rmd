@@ -1,0 +1,90 @@
+---
+title: "SRAG Covid Hospitalizados"
+description: |
+ Analise descritiva dos pacientes internados por COVID 19 em Porto Alegre durante o período da Pandemia.
+author:
+  - name: Márcio Rodrigues
+    url: https://github.com/msrodrigues/sms
+date: 07-13-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r Kniter Options, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include = FALSE, message = FALSE, warning = FALSE)
+```
+
+
+```{r Bibliotecas}
+library(pacman)
+p_load(openxlsx)
+p_load(scales)
+p_load(readxl)
+p_load(WriteXLS)
+p_load(ggthemes)
+p_load(RColorBrewer)
+p_load(lubridate)
+p_load(caret)
+p_load(tidyverse)
+p_load(here)
+p_load(googlesheets4)
+p_load(DescTools)
+p_load(obAnalytics)
+p_load(collapse)
+p_load(tictoc)
+p_load(directlabels)
+p_load(zoo)
+p_load(kableExtra)
+p_load(vroom)
+p_load(janitor)
+p_load(msrpack)
+p_load(ggmap)
+p_load(patchwork)
+p_load(esquisse)
+
+Sys.setenv(TZ="America/Recife")
+options(tz="America/Recife")
+Sys.getenv("TZ")
+options(scipen = 999999)
+Sys.setlocale("LC_TIME", "pt_BR")
+
+
+```
+
+
+
+```{r Carregamentos}
+sivep_list <- read_rds(file = "~/Dropbox/Coding/R/data/sivep/bin/sivep.rds")
+
+sivep <- sivep_list$hospitalizados %>% 
+  filter(dt_interna >= ymd("2020-03-19"))
+```
+
+
+```{r contagens gerais}
+# DF de Internados em Porto Alegre
+internados_poa <- sivep %>% 
+  filter(co_mu_inte == "431490")
+```
+
+
+
+
+```{r DF_auxiliares}
+
+
+dt_inicial <- min(internados_poa$dt_interna, na.rm = TRUE)
+dt_final <- max(internados_poa$dt_interna, na.rm = TRUE)
+
+
+
+# Número de Internados em POA
+n_internados_poa <- nrow(internados_poa)
+```
+
+
+# Pacientes COVID
+
+Durante o período de `r format(dt_inicial,"%d de %B de %Y")` a `r format(dt_final,"%d de %B de %Y")` internaram nos Hospitais de Porto Alegre (SUS e privados) `r mil(n_internados_poa)` pacientes () (Fonte: SIVEP Gripe)

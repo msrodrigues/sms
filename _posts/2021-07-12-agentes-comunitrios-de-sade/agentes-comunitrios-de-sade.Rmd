@@ -170,11 +170,17 @@ global <- acs %>%
 # Quantidade de unidades supridas sem excedentes pela E51
 n_suprida_e51_ajustadas <- sum(global$ajustada)
 
+acs$n_equipes
+acs %>% 
+  mutate(lista = map(n_equipes, ~ seq(from = 1, to = .x$n_equipes, by = 1)))
+acs$lista <- map(acs$n_equipes, ~ seq(from = 1, to = .x))
 
 ```
 
 
-São `r n_us` unidades de saúde, com `r n_esf` equipes de estratégia da saúde da família. As equipes de estratégia da saúde da família precisam de 1 ou 2 Agentes Comunitários de Saúde (ACS) para serem consideradas completas. As equipes completas tem **seu financiamento programado**. Equipes incompletas não recebem recursos federais.
+Em Porto Alegre dispomos de  **`r n_us` unidades de saúde (US)**, com **`r n_esf` equipes de estratégia da saúde da família (ESF)**. 
+
+As equipes de estratégia da saúde da família precisam de 1 ou 2 Agentes Comunitários de Saúde (ACS) para serem consideradas completas. As equipes completas tem **seu financiamento programado**. Equipes incompletas não recebem recursos federais.
 
 <br>
 
@@ -209,6 +215,16 @@ Temos **`r n_suprida_e51_ajustadas` unidades** que estão supridas sem excedente
 
 Os ACS contratados por E51 não podem ser demitidos e estão fixados geograficamente, não podendo ser remanejados mesmo se a quantidade em uma Unidade de Saúde (US) exceder a necessidade desse local, ele lá permanecerão como excedente. 
 
+<br>
+
+### Quantidade de Equipes de ESF
+
+```{r, include=TRUE}
+
+acs
+  
+
+```
 
 
 <br>
