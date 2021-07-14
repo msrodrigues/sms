@@ -82,9 +82,25 @@ dt_final <- max(internados_poa$dt_interna, na.rm = TRUE)
 
 # Número de Internados em POA
 n_internados_poa <- nrow(internados_poa)
+
+desc_uti <- internados_poa %>% 
+  mutate(
+    internado_uti = case_when(
+      flag_uti ~ "Internou UTI",
+      !flag_uti ~ "Não internou UTI",
+      TRUE ~ "Informação não disponível"
+    )
+  ) %>% 
+  pull(internado_uti) %>% Desc
+
+
+desc_uti[[1]]$freq[[2]][1]
+
+desc_uti[[1]]$freq[[3]][1]
+
 ```
 
 
 # Pacientes COVID
 
-Durante o período de `r format(dt_inicial,"%d de %B de %Y")` a `r format(dt_final,"%d de %B de %Y")` internaram nos Hospitais de Porto Alegre (SUS e privados) `r mil(n_internados_poa)` pacientes () (Fonte: SIVEP Gripe)
+Durante o período de `r format(dt_inicial,"%d de %B de %Y")` a `r format(dt_final,"%d de %B de %Y")` internaram nos Hospitais de Porto Alegre (SUS e privados) `r mil(n_internados_poa)` pacientes (moradores de POA ou de outras cidades), destes `r mil(desc_uti[[1]]$freq[[2]][1])` pacientes (`r percent(desc_uti[[1]]$freq[[3]][1], 0.1)`)  internaram em enfermaria e `r mil(desc_uti[[1]]$freq[[2]][2])` paceintes (`r percent(desc_uti[[1]]$freq[[3]][2], 0.1)`) internaram em UTI, para `r mil(desc_uti[[1]]$freq[[2]][3])` pacientes (`r percent(desc_uti[[1]]$freq[[3]][3], 0.1)`) não há informação disponível sobre o nível de cuidado recebido. Fonte: SIVEP Gripe.
