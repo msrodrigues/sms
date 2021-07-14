@@ -25,6 +25,8 @@ p_load(readxl)
 p_load(WriteXLS)
 p_load(ggthemes)
 p_load(RColorBrewer)
+p_load(viridis)
+p_load(ggsci)
 p_load(lubridate)
 p_load(caret)
 p_load(tidyverse)
@@ -67,9 +69,16 @@ sivep <- sivep_list$hospitalizados %>%
 # DF de Internados em Porto Alegre
 internados_poa <- sivep %>% 
   filter(co_mu_inte == "431490") %>% 
+   mutate(
+    internado_uti = case_when(
+      flag_uti ~ "UTI",
+      !flag_uti ~ "Enfermaria",
+      TRUE ~ "Informação não disponível"
+    )
+  ) %>% 
   mutate(
     flag_morador_poa = as.character(co_mun_res) == "431490"
-  )
+  ) 
 ```
 
 
@@ -87,19 +96,11 @@ dt_final <- max(internados_poa$dt_interna, na.rm = TRUE)
 n_internados_poa <- nrow(internados_poa)
 
 desc_uti <- internados_poa %>% 
-  mutate(
-    internado_uti = case_when(
-      flag_uti ~ "Internou UTI",
-      !flag_uti ~ "Não internou UTI",
-      TRUE ~ "Informação não disponível"
-    )
-  ) %>% 
   pull(internado_uti) %>% Desc
 
 des_moradores_poa <- Desc(factor(internados_poa$flag_morador_poa))
 
-des_moradores_poa[[1]]$freq[1,2]
-percent(des_moradores_poa[[1]]$freq[1,3],0.1)
+
 
 ```
 
@@ -110,6 +111,36 @@ Durante o período de `r format(dt_inicial,"%d de %B de %Y")` a `r format(dt_fin
 
 Do total de `r mil(n_internados_poa)` pacientes internados, `r mil(des_moradores_poa[[1]]$freq[2,2])` (`r percent(des_moradores_poa[[1]]$freq[2,3],0.1)`) eram moradores de Porto Alegre e `r des_moradores_poa[[1]]$freq[1,2]` (`r percent(des_moradores_poa[[1]]$freq[1,3],0.1)`) eram moradores de outras cidades.
 
-Fonte: SIVEP Gripe.
+<br>
+
+```{r Gráfico origem dos pacientes, include=TRUE}
+
+internados_poa %>% 
+  filter(internado_uti != "Informação não disponível") %>% 
+  mutate(
+    munic_res = ifelse(flag_morador_poa, "Porto Alegre", "Outro município")
+  ) %>% 
+  group_by(internado_uti,munic_res) %>% 
+  tally() %>% 
+  ggplot(aes(x = internado_uti, y = n , fill = munic_res, label = mil(n))) + 
+  geom_col() +
+  geom_label(position=position_stack(vjust=0.5), show.legend = FALSE) +
+  theme_msr +
+  scale_fill_manual(values = c("Porto Alegre" = "forestgreen", "Outro município" = "slategray2"), name = "Origem") +
+  labs(title = "Quantidade de pacientes internados em Porto Alegre",
+       subtitle = "Conforme sua origem e tipo de leito", caption = "Fonte: SIVEP Gripe") +
+  xlab("Tipo de leito") + ylab("Quantidade de pacientes") +
+  theme(legend.position = "right") + 
+  scale_y_continuous(labels = ks)
+```
+
+
+
+# Ocupação de  Leitos de UTI
+
+A ocupação das UTIS pode ser observada no seguinte [link](https://msrodrigues.shinyapps.io/Corona/)
+
+
+# 
 
 

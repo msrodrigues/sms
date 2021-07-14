@@ -11,9 +11,9 @@
     ],
     "date": "2021-07-13",
     "categories": [],
-    "contents": "\nPacientes COVID internados\nDurante o período de 19 de Março de 2020 a 30 de Julho de 2021 internaram nos Hospitais de Porto Alegre (SUS e privados) 24.538 pacientes (moradores de POA ou de outras cidades), destes 13.946 pacientes (56.8%) internaram em enfermaria e 10.164 paceintes (41.4%) internaram em UTI, para 428 pacientes (1.7%) não há informação disponível sobre o nível de cuidado recebido.\nDo total de 24.538 pacientes internados, 16.420 (66.9%) eram moradores de Porto Alegre e 8118 (33.1%) eram moradores de outras cidades.\nFonte: SIVEP Gripe.\n\n\n\n",
-    "preview": {},
-    "last_modified": "2021-07-14T09:24:54-03:00",
+    "contents": "\nPacientes COVID internados\nDurante o período de 19 de Março de 2020 a 30 de Julho de 2021 internaram nos Hospitais de Porto Alegre (SUS e privados) 24.538 pacientes (moradores de POA ou de outras cidades), destes 13.946 pacientes (56.8%) internaram em enfermaria e 10.164 paceintes (41.4%) internaram em UTI, para 428 pacientes (1.7%) não há informação disponível sobre o nível de cuidado recebido.\nDo total de 24.538 pacientes internados, 16.420 (66.9%) eram moradores de Porto Alegre e 8118 (33.1%) eram moradores de outras cidades.\n\n\n\n\nOcupação de Leitos de UTI\nA ocupação das UTIS pode ser observada no seguinte link\n\n\n\n\n",
+    "preview": "posts/2021-07-13-srag-covid-hospitalizados/srag-covid-hospitalizados_files/figure-html5/Gráfico origem dos pacientes-1.png",
+    "last_modified": "2021-07-14T10:26:19-03:00",
     "input_file": "srag-covid-hospitalizados.knit.md"
   },
   {
