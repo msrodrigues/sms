@@ -113,7 +113,7 @@ Do total de `r mil(n_internados_poa)` pacientes internados, `r mil(des_moradores
 
 <br>
 
-```{r Gráfico origem dos pacientes, include=TRUE}
+```{r origem_pacientes, include=TRUE}
 
 internados_poa %>% 
   filter(internado_uti != "Informação não disponível") %>% 
