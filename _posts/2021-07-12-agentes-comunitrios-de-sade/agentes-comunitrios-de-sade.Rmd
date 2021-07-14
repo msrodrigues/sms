@@ -171,9 +171,6 @@ global <- acs %>%
 n_suprida_e51_ajustadas <- sum(global$ajustada)
 
 acs$n_equipes
-acs %>% 
-  mutate(lista = map(n_equipes, ~ seq(from = 1, to = .x$n_equipes, by = 1)))
-acs$lista <- map(acs$n_equipes, ~ seq(from = 1, to = .x))
 
 ```
 
@@ -284,5 +281,28 @@ global  %>%
 
 
 A
+```{r}
+teste <- map2(acs$nome, acs$n_equipes, rep)
+
+
+
+
+acs_equipes <- acs %>% 
+  transmute(
+    equipes = map2(acs$nome, acs$n_equipes, rep)
+  ) %>% 
+  unnest() %>% 
+  group_by(equipes) %>% 
+  mutate(
+    no_equipe = seq_along(equipes),
+    equipe = glue::glue("{equipes} - Equipe {no_equipe}")
+  ) %>% 
+  ungroup()
+  
+
+left_join(acs_equipes, acs, by = c("equipes" = "nome")) %>% 
+  select(no_equipe, equipe,gd, cnes, acs_por_equipe = n_acs_por_equipe )
+
+```
 
 

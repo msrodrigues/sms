@@ -145,7 +145,7 @@ A ocupação das UTIS pode ser observada no seguinte [link](https://msrodrigues.
 
 # Hospitais
 
-
+A quantidade de internações por Hospital é descrita a seguir.
 
 ```{r barplot_hospitais, include=TRUE}
 
