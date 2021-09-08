@@ -95,16 +95,10 @@ acs <- acs_raw %>%
     total_acs_e51_imesf = acs_51 + acs_imesf,
     acs_necessarios_sem51 = total_acs_necessarios - acs_51,
     us_suprida_com51 = ifelse(acs_51 >= total_acs_necessarios, TRUE, FALSE)
-    # acs_clt_necessarios = acs_necessarios - acs_51,
-    # us_suprida_com51 = ifelse(acs_clt_necessarios <=0, TRUE, FALSE),
-    # total_acs = acs_51 + acs_imesf,                                           # Total de ACS trabalhando (E.51 + ACS imesf)
-    # balanco = total_acs - acs_necessarios,
-    # acs_para_desligar = ifelse(acs_clt_necessarios <= 0, 0,0 ),
-    # balanco_clt = acs_clt_necessarios - acs_necessarios
   ) %>% 
   filter(nome != "CGVS") 
 
-
+acs$n_equipes
 
 acs_clt <- acs %>% 
   filter(!us_suprida_com51) %>% 
@@ -216,15 +210,38 @@ Os ACS contratados por E51 não podem ser demitidos e estão fixados geograficam
 
 ### Quantidade de Equipes de ESF
 
-```{r, include=TRUE}
 
-acs
-  
+<br>
 
+
+```{r}
+acs_equipes <- acs %>% 
+  transmute(
+    equipes = map2(acs$nome, acs$n_equipes, rep)
+  ) %>% 
+  unnest() %>% 
+  group_by(equipes) %>% 
+  mutate(
+    no_equipe = seq_along(equipes),
+    equipe = glue::glue("{equipes} - Equipe {no_equipe}")
+  ) %>% 
+  ungroup()
 ```
 
 
-<br>
+```{r, include=TRUE}
+left_join(acs_equipes, acs, by = c("equipes" = "nome")) %>% 
+  select(no_equipe, equipe,gd, cnes, acs_por_equipe = n_acs_por_equipe ) %>% 
+  DT::datatable(
+         extensions = c('FixedColumns',"FixedHeader"),
+          options = list(scrollX = TRUE, 
+                         style = "bootstrap",
+                         paging=TRUE,
+                         fixedHeader=TRUE)) %>% 
+  DT::formatStyle(columns = c(1, 2, 3, 4, 5), fontSize = '75%')
+
+
+```
 
 ### Unidades de Saúde com suprimento completo de ACS
 
@@ -269,6 +286,7 @@ global  %>%
     "E51" = "acs_51",
     "IMESF" = "acs_imesf"
   ) %>% 
+  filter(balanco >= 0) %>% 
   DT::datatable( caption = "Unidades de Saúde com suprimento completo de ACS",
          extensions = c('FixedColumns',"FixedHeader"),
           options = list(scrollX = TRUE, 
@@ -280,29 +298,6 @@ global  %>%
 ```
 
 
-A
-```{r}
-teste <- map2(acs$nome, acs$n_equipes, rep)
 
-
-
-
-acs_equipes <- acs %>% 
-  transmute(
-    equipes = map2(acs$nome, acs$n_equipes, rep)
-  ) %>% 
-  unnest() %>% 
-  group_by(equipes) %>% 
-  mutate(
-    no_equipe = seq_along(equipes),
-    equipe = glue::glue("{equipes} - Equipe {no_equipe}")
-  ) %>% 
-  ungroup()
-  
-
-left_join(acs_equipes, acs, by = c("equipes" = "nome")) %>% 
-  select(no_equipe, equipe,gd, cnes, acs_por_equipe = n_acs_por_equipe )
-
-```
 
 
