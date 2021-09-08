@@ -4,7 +4,7 @@ description: |
   Site para divulgação e atualizações de análises
 author:
   - name: Márcio Rodrigues 
-    url: https://github.com/msrodrigues/sms
+    url: https://msrodrigues.github.io/sms/
     affiliation: Secretaria Municipal da Saúde de Porto Alegre
     affiliation_url: https://github.com/msrodrigues
 date: 07-12-2021
