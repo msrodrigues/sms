@@ -111,7 +111,7 @@ samu %>%
   
   addLayersControl(baseGroups = c("Carto","OSM","Esri"),
                    position = "topleft") %>% 
-  setView(lat = -30.09, lng = -51.21, zoom = 14) %>% 
+  setView(lat = -30.05, lng = -51.21, zoom = 12) %>% 
   addHeatmap(
     lng = ~long, lat = ~lat,
     blur = 12, max = 35, radius = 9, 
